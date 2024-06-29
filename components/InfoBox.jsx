@@ -1,5 +1,4 @@
 import React from 'react'
-
 const InfoBox = ({
     heading,
     backgroundColor = 'bg-gray-100',
@@ -11,7 +10,7 @@ const InfoBox = ({
 <div className={`${ backgroundColor }bg-gray-100 p-6 rounded-lg shadow-md`}>
             <h2 className={`${textColor}text-2xl font-bold`}>{heading}</h2>
             <p className={`$ {tectColor} mt-2 mb-4`}>
-             {children}
+             {children}           
             </p>
             <a
               href={buttonInfo.link}

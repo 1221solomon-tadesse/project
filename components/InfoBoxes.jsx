@@ -9,19 +9,19 @@ const InfoBoxes = () => {
     
           <InfoBox
           heading='For renters'
-          backgroundColor='bg-gray-100'
+          backgroundColor='bg-gray-200'
           buttonInfo={{
             text:'Browse properties',
             link:'/properties',
             backgroundColor:'bg-black '
           }}
-         >
+      >
         Find your dream rental property.Bookmark property and contact
 
          </InfoBox>
          <InfoBox
           heading='For Owners'
-          backgroundColor='bg-blue-300'
+          backgroundColor='bg-blue-500'
           buttonInfo={{
             text:'Browse add property',
             link:'/properties/add',
