@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import {FaBed,FaBath,FaRulerCombined ,FaMoneyBill,FaMapMarker} from 'react-icons/fa'
 const PropertyCard = ({property}) => {
   const getRateDisplay=()=>{
     const {rates }=property
@@ -35,44 +36,43 @@ const PropertyCard = ({property}) => {
 
               <div className="flex justify-center gap-4 text-gray-500 mb-4">
                 <p>
-                  <i className="fa-solid fa-bed"></i> {property.Beds }
+                  <FaBed className='inline mr-2'/> {property.beds }
                   <span className="md:hidden lg:inline">Beds</span>
                 </p>
                 <p>
-                  <i className="fa-solid fa-bath"></i>{property.Baths}
+                <FaBath className='inline mr-2'/> {property.baths}
                   <span className="md:hidden lg:inline">Baths</span>
                 </p>
                 <p>
-                  <i className="fa-solid fa-ruler-combined"></i>
-                {property.square_fee}<span className="md:hidden lg:inline">sqft</span>
+                <FaRulerCombined className='inline mr-2'/> 
+                {property.square_feet}<span className="md:hidden lg:inline">sqft</span>
                 </p>
               </div>
-
               <div
                 className="flex justify-center gap-4 text-green-900 text-sm mb-4"
               >
-                <p><i className="fa-solid fa-money-bill"></i> Weekly</p>
-                <p><i className="fa-solid fa-money-bill"></i> Monthly</p>
-              </div>
-
+               {property.rates.nightly &&
+             ( <p><FaMoneyBill className='inline mr-2'/>  nightly</p>)}
+               {property.rates.weekly && ( <p><FaMoneyBill className='inline mr-2'/>  Weekly</p>)}
+            
+             {property.rates.monthly &&( <p><FaMoneyBill className='inline mr-2'/>  monthly</p>)}
+             </div>
               <div className="border border-gray-100 mb-5"></div>
-
+              
               <div className="flex flex-col lg:flex-row justify-between mb-4">
                 <div className="flex align-middle gap-2 mb-4 lg:mb-0">
-                  <i
-                    className="fa-solid fa-location-dot text-lg text-orange-700"
-                  ></i>
-                  <span className="text-orange-700"> Boston MA </span>
+                <FaMapMarker className='text-orange-700'/> 
+                  <span className="text-orange-700"> {property.location.city}{property.location.state}{' '} </span>
                 </div>
                 <Link
-                  href="property"
+                  href={`/properties/${property._id}`}
                   className="h-[36px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
                 >
                   Details
                 </Link>
               </div>
             </div>
-          </div>
+        </div> 
   )
 }
 
