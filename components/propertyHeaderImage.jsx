@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 const PropertyHeaderImage = ({ image }) => {
+  
   return (
     <section>
       <div className='container-xl m-auto'>
