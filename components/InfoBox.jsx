@@ -9,7 +9,7 @@ const InfoBox = ({
   return (
 <div className={`${ backgroundColor }bg-gray-100 p-6 rounded-lg shadow-md`}>
             <h2 className={`${textColor}text-2xl font-bold`}>{heading}</h2>
-            <p className={`$ {tectColor} mt-2 mb-4`}>
+            <p className={`${textColor} mt-2 mb-4`}>
              {children}           
             </p>
             <a

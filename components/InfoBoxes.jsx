@@ -21,7 +21,7 @@ const InfoBoxes = () => {
          </InfoBox>
          <InfoBox
           heading='For Owners'
-          backgroundColor='bg-blue-500'
+          backgroundColor='bg-blue-100'
           buttonInfo={{
             text:'Browse add property',
             link:'/properties/add',
