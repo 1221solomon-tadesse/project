@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {FaBed,FaBath,FaRulerCombined ,FaMoneyBill,FaMapMarker} from 'react-icons/fa'
-const PropertyCard = ({property}) => {
+const PropertyCard = ({ property }) => {
   const getRateDisplay=()=>{
     const {rates }=property
     if (rates.monthly){
