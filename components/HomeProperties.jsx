@@ -2,7 +2,7 @@ import Link from 'next/link';
 // import { fetchProperties } from '@/utils/request';
 import PropertyCard from '@/components/PropertyCard';
  import properties from "@/properties.json";
-export const HomeProperties = () => {
+export const HomeProperties = async() => {
     //  const properties = await fetchProperties();
       /* Recent properties */
     const recentProperties = properties
