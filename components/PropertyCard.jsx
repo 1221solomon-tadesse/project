@@ -7,7 +7,6 @@ const PropertyCard = ({ property }) => {
     const { rates } = property;
 
     if (rates) {
-      // Check if rates is defined
       if (rates.monthly) {
         return `${rates.monthly.toLocaleString()}/mo`;
       } else if (rates.weekly) {
@@ -16,7 +15,6 @@ const PropertyCard = ({ property }) => {
         return `${rates.nightly.toLocaleString()}/night`;
       }
     }
-
     return "Not available"; // Fallback if rates are not available
   };
 
