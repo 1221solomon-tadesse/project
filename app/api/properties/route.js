@@ -3,7 +3,6 @@ import Property from '@/models/Property'
 //GET/api/properties
 export const GET=async(request)=>{
    try{
-    //  console.log("Solomon");
        await connectDB();
        const properties= await Property.find({});
        return new Response(JSON.stringify(properties), {status:200})
