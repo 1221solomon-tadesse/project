@@ -18,9 +18,9 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    // Invoked on successful signin
+    //Invoked on successful signin
     async signIn({ profile }) {
-      // 1. Connect to database
+      //1. Connect to database
       await connectDB();
       // 2. Check if user exists
       const userExists = await User.findOne({ email: profile.email });
