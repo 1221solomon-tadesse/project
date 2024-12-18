@@ -10,6 +10,7 @@ import { useSession,signIn,signOut,getProviders } from 'next-auth/react'
 // import {i } from 'react-icon/fa'
 const Navbar = () => {
   const {data:session}=useSession()
+   const profileImage = session?.user?.image;
 const [isMobileMenuOpen,setIsMobileMenuOpen]=useState(false)
 const [isProfileMenuOpen,setIsProfileMenuOpen]=useState(false)
 const [providers,setProviders]=useState(true)
@@ -160,8 +161,10 @@ return (
 
                   <Image
                     className="h-8 w-8 rounded-full"
-                    src={profile}
+                    src={profileImage || profileDefualt}
                     alt=""
+                    width={40}
+                    height={40}
                   />
                 </button>
               </div>
