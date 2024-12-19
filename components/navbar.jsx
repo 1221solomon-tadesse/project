@@ -105,8 +105,12 @@ return (
           <div className="hidden md:block md:ml-6">
             <div className="flex items-center">
               {providers &&
-                Object.values(providers).map((provider,index) => (
-                  <button onClick={()=>signIn(provider.id)} key={index} className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
+                Object.values(providers).map((provider, index) => (
+                  <button
+                    onClick={() => signIn(provider.id)}
+                    key={index}
+                    className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  >
                     <i className=" text-white mr-2"></i>
                     <span>Login or Register</span>
                   </button>
@@ -187,6 +191,9 @@ return (
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-0"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                    }}
                   >
                     Your Profile
                   </Link>
@@ -198,10 +205,17 @@ return (
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-2"
+                    onClick={() => {
+                      setIsProfileMenuOpen(false);
+                    }}
                   >
                     Saved Properties
                   </Link>
                   <button
+                    onClick={() => {
+                      setIsProfileMenuOpen(false);
+                      signOut();
+                    }}
                     className={`${
                       pathname === "/signout" ? "bg-black" : ""
                     }hover:bg-gray-900 block px-4 py-2 text-sm text-gray-700`}
@@ -251,12 +265,16 @@ return (
           )}
 
           {providers &&
-               Object.values(providers).map((provider,index) => (
-                  <button onClick={()=>signIn(provider.id)} key={index} className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4">
-            <i className="fa-brands fa-google mr-2"></i>
-            <span>Login or Register</span>
-          </button>
-                ))}
+            Object.values(providers).map((provider, index) => (
+              <button
+                onClick={() => signIn(provider.id)}
+                key={index}
+                className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4"
+              >
+                <i className="fa-brands fa-google mr-2"></i>
+                <span>Login or Register</span>
+              </button>
+            ))}
         </div>
       </div>
     )}
