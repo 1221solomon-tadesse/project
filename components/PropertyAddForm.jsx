@@ -16,7 +16,7 @@ function PropertyAddForm() {
     beds: '',
     baths: '',
     square_feet: '',
-    amenities: [],
+    amenities: [],  
     rates: {
       weekly: '',
       monthly: '',

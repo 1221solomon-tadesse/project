@@ -18,3 +18,16 @@ export const GET = async (request, { params }) => {
     });
   }
 };
+export const POST = async () => {
+  try {
+    return new Response(JSON.stringify({ message: "success" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    return new Response("Failed to add property", {
+      status: 500,
+      headers: { "Content-Type": "text/plain" },
+    });
+  }
+};
