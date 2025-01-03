@@ -19,7 +19,6 @@ export const GET = async (request, { params }) => {
     return new Response("Something Went Wrong", { status: 500 });
   }
 };
-
 // DELETE /api/properties/:id
 export const DELETE = async (request, { params }) => {
   try {
