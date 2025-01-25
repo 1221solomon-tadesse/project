@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 import connectDB from "@/config/database";
 import User from "@/models/User";
 
-export async function POST(request: Request) {
+export async function POST(request) {
   const { name, email, password, confirmPassword } = await request.json();
 
   // Email validation
-  const isValidEmail = (email: string) => {
+  const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };

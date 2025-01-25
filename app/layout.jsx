@@ -1,5 +1,5 @@
 
-import "@/assets/styles/globals.css"
+import '@/assets/styles/globals.css';
 import Footer from "@/components/Footer";
 import Navbar from '@/components/navbar';
 import AuthProvider from "@/components/AuthProvider";
