@@ -64,7 +64,7 @@ return (
             <Image className="h-10 w-auto" src={logo} alt="PropertyPulse" />
 
             <span className="hidden md:block text-white text-2xl font-bold ml-2">
-              PropertyPulse
+              መኖርያየ
             </span>
           </Link>
           {/* <!-- Desktop Menu Hidden below md screens --> */}
@@ -101,20 +101,20 @@ return (
         </div>
 
         {/* <!-- Right Side Menu (Logged Out) --> */}
-        {!session && (
+        {/* Desktop Menu */}
+        {!session && providers && (
           <div className="hidden md:block md:ml-6">
             <div className="flex items-center">
-              {providers &&
-                Object.values(providers).map((provider, index) => (
-                  <button
-                    onClick={() => signIn(provider.id)}
-                    key={index}
-                    className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >
-                    <i className=" text-white mr-2"></i>
-                    <span>Login or Register</span>
-                  </button>
-                ))}
+              {Object.values(providers).map((provider, index) => (
+                <button
+                  onClick={() => signIn(provider.id)}
+                  key={index}
+                  className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                >
+                  <i className="text-white mr-2"></i>
+                  <span>Login or Register</span>
+                </button>
+              ))}
             </div>
           </div>
         )}
@@ -272,7 +272,7 @@ return (
                 className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4"
               >
                 <i className="fa-brands fa-google mr-2"></i>
-                <span>Login or Register</span>
+                Login or Register
               </button>
             ))}
         </div>
