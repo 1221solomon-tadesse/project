@@ -21,7 +21,7 @@ const Footer = () => {
         </div>
         <div>
           <p className="text-sm text-gray-500 mt-2 md:mt-0">
-            &copy; 2024 PropertyPulse. All rights reserved.
+            &copy; መኖርያየ. All rights reserved.
           </p>
         </div>
       </div>

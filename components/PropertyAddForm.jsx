@@ -9,8 +9,8 @@ function PropertyAddForm() {
     description: '',
     location: {
       street: '',
+      region: '',
       city: '',
-      state: '',
       zipcode: '',
     },
     beds: '',
@@ -140,7 +140,7 @@ function PropertyAddForm() {
             id='name'
             name='name'
             className='border rounded w-full py-2 px-3 mb-2'
-            placeholder='eg. Beautiful Apartment In Miami'
+            placeholder='eg. Beautiful Apartment In Bahir dar'
             required
             value={fields.name}
             onChange={handleChange}
@@ -178,21 +178,21 @@ function PropertyAddForm() {
           <input
             type='text'
             id='city'
-            name='location.city'
+            name='location.region'
             className='border rounded w-full py-2 px-3 mb-2'
-            placeholder='City'
+            placeholder='Region'
             required
-            value={fields.location.city}
+            value={fields.location.region}
             onChange={handleChange}
           />
           <input
             type='text'
             id='state'
-            name='location.state'
+            name='location.city'
             className='border rounded w-full py-2 px-3 mb-2'
-            placeholder='State'
+            placeholder='City'
             required
-            value={fields.location.state}
+            value={fields.location.city}
             onChange={handleChange}
           />
           <input
