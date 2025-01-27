@@ -1,6 +1,6 @@
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
-// import { getSessionUser } from "@/utils/getSessionUser";
+import { getSessionUser } from "@/utils/getSessionUser";
 
 // GET /api/properties/:id
 export const GET = async (request, { params }) => {
@@ -19,6 +19,7 @@ export const GET = async (request, { params }) => {
     return new Response("Something Went Wrong", { status: 500 });
   }
 };
+
 // DELETE /api/properties/:id
 export const DELETE = async (request, { params }) => {
   try {
@@ -94,7 +95,7 @@ export const PUT = async (request, { params }) => {
       location: {
         street: formData.get("location.street"),
         city: formData.get("location.city"),
-        region: formData.get("location.region"),
+        state: formData.get("location.state"),
         zipcode: formData.get("location.zipcode"),
       },
       beds: formData.get("beds"),
