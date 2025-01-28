@@ -28,7 +28,6 @@ export const authOptions = {
       if (!userExists) {
         // Truncate user name if too long
         const username = profile.name.slice(0, 20);
-
         await User.create({
           email: profile.email,
           username,
