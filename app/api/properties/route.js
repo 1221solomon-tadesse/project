@@ -1,13 +1,12 @@
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
 import { getSessionUser } from "@/utils/getSessionUser";
-// import cloudinary from "@/config/cloudinary";
+import cloudinary from "@/config/cloudinary";
 
 // GET /api/properties
 export const GET = async (request) => {
   try {
     await connectDB();
-
     const page = request.nextUrl.searchParams.get("page") || 1;
     const pageSize = request.nextUrl.searchParams.get("pageSize") || 6;
 
@@ -49,7 +48,6 @@ export const POST = async (request) => {
     const images = formData
       .getAll("images")
       .filter((image) => image.name !== "");
-
     // Create propertyData object for database
     const propertyData = {
       type: formData.get("type"),
@@ -57,8 +55,8 @@ export const POST = async (request) => {
       description: formData.get("description"),
       location: {
         street: formData.get("location.street"),
+        region: formData.get("location.region"),
         city: formData.get("location.city"),
-        state: formData.get("location.state"),
         zipcode: formData.get("location.zipcode"),
       },
       beds: formData.get("beds"),
@@ -93,8 +91,9 @@ export const POST = async (request) => {
       const result = await cloudinary.uploader.upload(
         `data:image/png;base64,${imageBase64}`,
         {
-          folder: "propertypulse",
+          folder: "menoryaye",
         }
+
       );
 
       imageUploadPromises.push(result.secure_url);
