@@ -7,6 +7,7 @@ import cloudinary from "@/config/cloudinary";
 export const GET = async (request) => {
   try {
     await connectDB();
+
     const page = request.nextUrl.searchParams.get("page") || 1;
     const pageSize = request.nextUrl.searchParams.get("pageSize") || 6;
 
@@ -34,6 +35,7 @@ export const POST = async (request) => {
     await connectDB();
 
     const sessionUser = await getSessionUser();
+    console.log("Session User:", sessionUser); // Debugging line
 
     if (!sessionUser || !sessionUser.userId) {
       return new Response("User ID is required", { status: 401 });
@@ -48,6 +50,7 @@ export const POST = async (request) => {
     const images = formData
       .getAll("images")
       .filter((image) => image.name !== "");
+
     // Create propertyData object for database
     const propertyData = {
       type: formData.get("type"),
@@ -55,8 +58,8 @@ export const POST = async (request) => {
       description: formData.get("description"),
       location: {
         street: formData.get("location.street"),
-        region: formData.get("location.region"),
-        city: formData.get("location.city"),
+        city: formData.get("location.region"),
+        state: formData.get("location.city"),
         zipcode: formData.get("location.zipcode"),
       },
       beds: formData.get("beds"),
@@ -91,9 +94,8 @@ export const POST = async (request) => {
       const result = await cloudinary.uploader.upload(
         `data:image/png;base64,${imageBase64}`,
         {
-          folder: "menoryaye",
+          folder: "mchot",
         }
-
       );
 
       imageUploadPromises.push(result.secure_url);
@@ -115,6 +117,9 @@ export const POST = async (request) => {
     //   status: 200,
     // });
   } catch (error) {
+    console.error('Error:', error); // More detailed error logging
     return new Response("Failed to add property", { status: 500 });
   }
+
+  console.log(propertyData)
 };
