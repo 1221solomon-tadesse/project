@@ -20,7 +20,7 @@ const UserSchema = new Schema(
         ref: 'Property',
       },
     ],
-  },
+  },  
   {
     timestamps: true,
   }
