@@ -7,7 +7,7 @@ import logo from '@/assets/images/logo-white.png'
  import profile from '@/assets/images/profile.png'
 import Link from 'next/link'
 import { useSession,signIn,signOut,getProviders } from 'next-auth/react'
- import {i } from 'react-icon/fa'
+ //import {i } from 'react-icon/fa'
 const Navbar = () => {
   const {data:session}=useSession()
    const profileImage = session?.user?.image;
@@ -26,7 +26,7 @@ useEffect(()=>{
 
 
 return (
-  <nav className="bg-blue-700 border-b border-blue-500">
+  <nav className="bg-[#9333ea] border-b border-[#d946ef]">
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div className="relative flex h-20 items-center justify-between">
         <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
