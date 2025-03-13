@@ -4,10 +4,10 @@ import { usePathname} from 'next/navigation'
 import { useState,useEffect} from 'react'
 import Image from 'next/image'
 import logo from '@/assets/images/logo-white.png'
-// import profile from '@/assets/images/profile.png'
+ import profile from '@/assets/images/profile.png'
 import Link from 'next/link'
 import { useSession,signIn,signOut,getProviders } from 'next-auth/react'
-// import {i } from 'react-icon/fa'
+ import {i } from 'react-icon/fa'
 const Navbar = () => {
   const {data:session}=useSession()
    const profileImage = session?.user?.image;
