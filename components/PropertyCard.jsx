@@ -15,7 +15,7 @@ const PropertyCard = ({ property }) => {
         return `${rates.nightly.toLocaleString()}/night`;
       }
     }
-    return "Not available"; // Fallback if rates are not available
+    return "Not available"; 
   };
 
   return (
