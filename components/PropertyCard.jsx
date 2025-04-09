@@ -40,13 +40,13 @@ const PropertyCard = ({ property }) => {
         <div className="flex justify-center gap-4 text-gray-500 mb-4">
           <p>
             <FaBed className="inline mr-2" /> {property.beds}
-            {""}
+           
             <span className="md:hidden lg:inline"> Beds</span>
           </p>
           <p>
             <FaBath className="inline mr-2" />
             {property.baths}
-            {""}
+           
             <span className="md:hidden lg:inline"> Baths</span>
           </p>
           <p>
@@ -58,7 +58,7 @@ const PropertyCard = ({ property }) => {
 
         <div className="flex justify-center gap-4 text-green-900 text-sm mb-4">
           {property.rates &&
-            property.rates.nightly && ( // Check if rates is defined
+            property.rates.nightly && ( 
               <p>
                 <FaMoneyBill className="inline mr-2" /> {property.rates.nightly}{" "}
                 nightly

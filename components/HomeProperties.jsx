@@ -5,7 +5,7 @@ import { fetchProperties } from "@/utils/request";
 const HomeProperties = async () => {
   const data = await fetchProperties();
 
-  const recentProperties = data.properties
+  const recentProperties = (data?.properties || [])
     .sort(() => Math.random() - Math.random())
     .slice(0, 3);
 
@@ -13,7 +13,7 @@ const HomeProperties = async () => {
     <>
       <section className="px-4 py-6">
         <div className="container-xl lg:container m-auto">
-          <h2 className="text-3xl font-bold text-[#d946ef] mb-6 text-center">
+          <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">
             Recent Properties
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -39,4 +39,5 @@ const HomeProperties = async () => {
     </>
   );
 };
+
 export default HomeProperties;
