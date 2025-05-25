@@ -16,7 +16,7 @@ export const GET = async () => {
         status: 401,
       });
     }
-
+   
     const { userId } = sessionUser;
 
     const readMessages = await Message.find({ recipient: userId, read: true })
