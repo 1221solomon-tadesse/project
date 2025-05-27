@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 import { ToastContainer } from "react-toastify";
@@ -13,20 +13,19 @@ export const metadata = {
   keywords: "rental, find rentals, find properties",
 };
 
-const MainLayout = ({ children }) => {
+export default function MainLayout({ children }) {
   return (
-    <GlobalProvider>
-      <AuthProvider>
-        <html lang="en">
-          <body>
+    <html lang="en">
+      <body>
+        <GlobalProvider>
+          <AuthProvider>
             <Navbar />
             <main>{children}</main>
             <Footer />
             <ToastContainer />
-          </body>
-        </html>
-      </AuthProvider>
-    </GlobalProvider>
+          </AuthProvider>
+        </GlobalProvider>
+      </body>
+    </html>
   );
-};
-export default MainLayout;
+}
