@@ -1,16 +1,16 @@
 'use client';
- import Link from 'next/link';
- import { useEffect, useState } from 'react';
- import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { fetchProperty } from '@/utils/request';
-import PropertyHeaderImage from '@/components/PropertyHeaderImage';
- import PropertyDetails from '@/components/PropertyDetails';
- import PropertyImages from '@/components/PropertyImages';
-  import BookmarkButton from '@/components/BookmarkButton';
- import PropertyContactForm from '@/components/PropertyContactForm';
- import ShareButtons from '@/components/ShareButtons';
- import Spinner from '@/components/Spinner';
- import { FaArrowLeft } from 'react-icons/fa';
+import PropertyHeaderImage from '@/components/propertyHeaderImage';
+import PropertyDetails from '@/components/PropertyDetails';
+import PropertyImages from '@/components/PropertyImages';
+import BookmarkButton from '@/components/BookmarkButton';
+import PropertyContactForm from '@/components/PropertyContactForm';
+import ShareButtons from '@/components/ShareButtons';
+import Spinner from '@/components/Spinner';
+import { FaArrowLeft } from 'react-icons/fa';
 
 // import Property from "@/models/Property";
 
