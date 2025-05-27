@@ -1,6 +1,5 @@
 import connectDB from "@/config/database";
 import User from "@/models/user";
-
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
@@ -18,33 +17,51 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    // Invoked on successful signin
     async signIn({ profile }) {
-      // 1. Connect to database
-      await connectDB();
-      // 2. Check if user exists
-      const userExists = await User.findOne({ email: profile.email });
-      // 3. If not, then add user to database
-      if (!userExists) {
-        // Truncate user name if too long
-        const username = profile.name.slice(0, 20);
-        await User.create({
-          email: profile.email,
-          username,
-          image: profile.picture,
-        });
+      try {
+        await connectDB();
+        
+        // Check if user exists
+        const userExists = await User.findOne({ email: profile.email });
+        
+        // If not, create user
+        if (!userExists) {
+          const username = profile.name.slice(0, 20);
+          
+          await User.create({
+            email: profile.email,
+            username,
+            image: profile.picture,
+          });
+        }
+        
+        return true;
+      } catch (error) {
+        console.error("Error during sign in:", error);
+        return false;
       }
-      // 4. Return true to allow sign in
-      return true;
     },
-    // Modifies the session object
     async session({ session }) {
-      // 1. Get user from database
-      const user = await User.findOne({ email: session.user.email });
-      // 2. Assign the user id to the session
-      session.user.id = user._id.toString();
-      // 3. return session
-      return session;
+      try {
+        // Get user from database
+        const user = await User.findOne({ email: session.user.email });
+        
+        if (user) {
+          // Add user ID to session
+          session.user.id = user._id.toString();
+        }
+        
+        return session;
+      } catch (error) {
+        console.error("Error in session callback:", error);
+        return session;
+      }
     },
   },
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/error',
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: true,
 };
