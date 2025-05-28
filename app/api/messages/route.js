@@ -12,15 +12,16 @@ export const GET = async () => {
     const sessionUser = await getSessionUser();
 
     if (!sessionUser || !sessionUser.user) {
-      return new Response(JSON.stringify('User ID is required'), {
+      return new Response(JSON.stringify({ message: 'Unauthorized' }), {
         status: 401,
+        headers: { 'Content-Type': 'application/json' }
       });
     }
    
     const { userId } = sessionUser;
 
     const readMessages = await Message.find({ recipient: userId, read: true })
-      .sort({ createdAt: -1 }) // Sort read messages in asc order
+      .sort({ createdAt: -1 })
       .populate('sender', 'username')
       .populate('property', 'name');
 
@@ -28,16 +29,22 @@ export const GET = async () => {
       recipient: userId,
       read: false,
     })
-      .sort({ createdAt: -1 }) // Sort read messages in asc order
+      .sort({ createdAt: -1 })
       .populate('sender', 'username')
       .populate('property', 'name');
 
     const messages = [...unreadMessages, ...readMessages];
 
-    return new Response(JSON.stringify(messages), { status: 200 });
+    return new Response(JSON.stringify(messages), { 
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
   } catch (error) {
     console.log(error);
-    return new Response('Something went wrong', { status: 500 });
+    return new Response(JSON.stringify({ message: 'Something went wrong', error: error.message }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 };
 
@@ -46,15 +53,36 @@ export const POST = async (request) => {
   try {
     await connectDB();
 
-    const { name, email, phone, message, property, recipient } =
-      await request.json();
+    // Log the request body for debugging
+    const body = await request.json();
+    console.log('Message POST request body:', body);
+
+    const { name, email, phone, message, property, recipient } = body;
+
+    // Validate required fields
+    if (!name || !email || !message || !property || !recipient) {
+      return new Response(
+        JSON.stringify({ 
+          message: 'Missing required fields',
+          received: { name, email, message, property, recipient }
+        }),
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
 
     const sessionUser = await getSessionUser();
+    console.log('Session user:', sessionUser);
 
     if (!sessionUser || !sessionUser.user) {
       return new Response(
         JSON.stringify({ message: 'You must be logged in to send a message' }),
-        { status: 401 }
+        { 
+          status: 401,
+          headers: { 'Content-Type': 'application/json' }
+        }
       );
     }
 
@@ -63,8 +91,11 @@ export const POST = async (request) => {
     // Can not send message to self
     if (user.id === recipient) {
       return new Response(
-        JSON.stringify({ message: 'Can not send a message to yourself' }),
-        { status: 400 }
+        JSON.stringify({ message: 'Cannot send a message to yourself' }),
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
       );
     }
 
@@ -78,13 +109,27 @@ export const POST = async (request) => {
       body: message,
     });
 
+    console.log('Creating new message:', newMessage);
+    
     await newMessage.save();
+    console.log('Message saved successfully');
 
     return new Response(JSON.stringify({ message: 'Message Sent' }), {
       status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
-    console.log(error);
-    return new Response('Something went wrong', { status: 500 });
+    console.error('Error in POST /api/messages:', error);
+    return new Response(
+      JSON.stringify({ 
+        message: 'Something went wrong', 
+        error: error.message,
+        stack: error.stack
+      }), 
+      { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
   }
 };

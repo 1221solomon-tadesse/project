@@ -17,46 +17,53 @@ export const authOptions = {
     }),
   ],
   callbacks: {
+    // Called after successful sign in
     async signIn({ profile }) {
-      try {
-        await connectDB();
-        
-        // Check if user exists
-        const userExists = await User.findOne({ email: profile.email });
-        
-        // If not, create user
-        if (!userExists) {
-          const username = profile.name.slice(0, 20);
-          
-          await User.create({
-            email: profile.email,
-            username,
-            image: profile.picture,
-          });
-        }
-        
-        return true;
-      } catch (error) {
-        console.error("Error during sign in:", error);
-        return false;
+      // Connect to database
+      await connectDB();
+      
+      console.log("Profile from Google:", profile);
+
+      // Check if user exists
+      const userExists = await User.findOne({ email: profile.email });
+
+      // If not, create user
+      if (!userExists) {
+        // Get user name or use email as fallback
+        const username = profile.name.replace(/\s/g, "").toLowerCase();
+
+        await User.create({
+          email: profile.email,
+          username,
+          name: profile.name,
+          image: profile.picture,
+        });
       }
+
+      return true;
     },
+    // Modify session object
     async session({ session }) {
-      try {
-        // Get user from database
-        const user = await User.findOne({ email: session.user.email });
-        
-        if (user) {
-          // Add user ID to session
-          session.user.id = user._id.toString();
-        }
-        
-        return session;
-      } catch (error) {
-        console.error("Error in session callback:", error);
-        return session;
+      // Get user from database
+      const user = await User.findOne({ email: session.user.email });
+      
+      console.log("User from database:", user);
+
+      // Add user ID to session
+      if (user) {
+        session.user.id = user._id.toString();
+        session.user.username = user.username;
       }
+
+      return session;
     },
+    async jwt({ token, user }) {
+      // Add user ID to token if available
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    }
   },
   pages: {
     signIn: '/auth/signin',

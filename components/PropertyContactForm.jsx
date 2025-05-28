@@ -11,10 +11,13 @@ const PropertyContactForm = ({ property }) => {
   const [message, setMessage] = useState('');
   const [phone, setPhone] = useState('');
   const [wasSubmitted, setWasSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
+    // Log data for debugging
     const data = {
       name,
       email,
@@ -23,6 +26,8 @@ const PropertyContactForm = ({ property }) => {
       recipient: property.owner,
       property: property._id,
     };
+    
+    console.log('Sending message data:', data);
 
     try {
       const res = await fetch('/api/messages', {
@@ -33,19 +38,24 @@ const PropertyContactForm = ({ property }) => {
         body: JSON.stringify(data),
       });
 
+      console.log('Response status:', res.status);
+      
+      const responseData = await res.json();
+      console.log('Response data:', responseData);
+
       if (res.status === 200) {
         toast.success('Message sent successfully');
         setWasSubmitted(true);
       } else if (res.status === 400 || res.status === 401) {
-        const dataObj = await res.json();
-        toast.error(dataObj.message);
+        toast.error(responseData.message);
       } else {
         toast.error('Error sending form');
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error sending message:', error);
       toast.error('Error sending form');
     } finally {
+      setIsSubmitting(false);
       setName('');
       setEmail('');
       setPhone('');
@@ -127,14 +137,22 @@ const PropertyContactForm = ({ property }) => {
               placeholder='Enter your message'
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              required
             ></textarea>
           </div>
           <div>
             <button
               className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline flex items-center justify-center'
               type='submit'
+              disabled={isSubmitting}
             >
-              <FaPaperPlane className='mr-2' /> Send Message
+              {isSubmitting ? (
+                'Sending...'
+              ) : (
+                <>
+                  <FaPaperPlane className='mr-2' /> Send Message
+                </>
+              )}
             </button>
           </div>
         </form>
